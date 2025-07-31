@@ -1,0 +1,34 @@
+id: dubbo-login
+info:
+  author: pdteam
+  name: dubbo-default-password
+  severity: high
+  tags: dubbo
+  zombie: dubbo
+
+http:
+  - raw:
+      - |
+        GET / HTTP/1.1
+        Host: {{Hostname}}
+        Authorization: Basic {{base64(username + ':' + password)}}
+        Content-Length: 2
+
+    attack: pitchfork
+    stop-at-first-match: true
+    matchers:
+      - status:
+          - 200
+        type: status
+      - type: word
+        part: body
+        words:
+          - Dubbo Admin
+    matchers-condition: and
+    payloads:
+      username:
+        - root
+        - guest
+      password:
+        - root
+        - guest

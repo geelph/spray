@@ -1,0 +1,95 @@
+ftp_user:
+  - ftp
+  - admin
+  - www
+  - anonymous
+ftp_pwd:
+  - ftp
+  - www
+  - '{{blank}}'
+  - '{{common_pwd}}'
+mysql_user:
+  - root
+  - mysql
+  - admin
+mysql_pwd:
+  - mysql
+  - root
+  - '{{blank}}'
+  - '{{common_pwd}}'
+mssql_user:
+  - sa
+mssql_pwd:
+  - sa
+  - '{{common_pwd}}'
+smb_user:
+  - administrator
+  - admin
+  - guest
+smb_pwd:
+  - '{{common_pwd}}'
+rdp_user:
+  - administrator
+  - admin
+rdp_pwd:
+  - '{{common_pwd}}'
+postgresql_user:
+  - postgres
+  - admin
+postgresql_pwd:
+  - '{{blank}}'
+  - postgre
+  - postgresql
+  - '{{common_pwd}}'
+ssh_user:
+  - root
+  - admin
+ssh_pwd:
+  - admin@huawei.com
+  - '{{common_pwd}}'
+mongo_user:
+  - root
+  - admin
+mongo_pwd:
+  - mongo
+  - '{{common_pwd}}'
+redis_user:
+  - '{{blank}}'
+redis_pwd:
+  - '{{blank}}'
+  - redis
+  - '{{common_pwd}}'
+rsync_user:
+  - root
+  - rsync
+rsync_pwd:
+  - rsync
+  - '{{common_pwd}}'
+vnc_user:
+  - vnc
+  - admin
+vnc_pwd:
+  - '{{common_pwd}}'
+socks_user:
+  - admin
+socks_pwd:
+  - '{{common_pwd}}'
+telnet_user:
+  - admin
+  - root
+telnet_pwd:
+  - '{{common_pwd}}'
+oracle_user:
+  - internal
+  - sys
+  - system
+oracle_pwd:
+  - oracle
+  - manager
+  - change_on_install
+  - '{{common_pwd}}'
+http_user:
+  - admin
+http_pwd:
+  - '{{common_pwd}}'
+

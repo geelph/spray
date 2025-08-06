@@ -2,14 +2,15 @@ package pkg
 
 import (
 	"fmt"
+	"os"
+	"strings"
+
 	"github.com/chainreactors/fingers"
 	"github.com/chainreactors/parsers"
 	"github.com/chainreactors/utils"
 	"github.com/chainreactors/utils/iutils"
 	"github.com/chainreactors/words/mask"
-	"os"
 	yaml "sigs.k8s.io/yaml/goyaml.v3"
-	"strings"
 )
 
 func LoadPorts() error {
@@ -122,6 +123,10 @@ func LoadExtractorConfig(filename string) ([]*parsers.Extractor, error) {
 	return extracts, nil
 }
 
+// Load
+//
+//	@Description: 加载默认端口和模板数据,模板数据包含:rules,dicts,words keyword,extractor,fingers
+//	@return error
 func Load() error {
 	err := LoadPorts()
 	if err != nil {

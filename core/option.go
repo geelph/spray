@@ -31,38 +31,67 @@ import (
 	"time"
 )
 
+// 设置默认线程为20
 var (
 	DefaultThreads = 20
 )
 
+// Option
+// @Description: 定义Option类型对命令参数进行分类
 type Option struct {
-	InputOptions    `group:"Input Options" config:"input" `
+	// 输入类型参数
+	InputOptions `group:"Input Options" config:"input" `
+	// 函数类型参数
 	FunctionOptions `group:"Function Options" config:"functions" `
-	OutputOptions   `group:"Output Options" config:"output"`
-	PluginOptions   `group:"Plugin Options" config:"plugins"`
-	FingerOptions   `group:"Finger Options" config:"finger"`
-	RequestOptions  `group:"Request Options" config:"request"`
-	ModeOptions     `group:"Modify Options" config:"mode"`
-	MiscOptions     `group:"Miscellaneous Options" config:"misc"`
+	// 输出类型参数
+	OutputOptions `group:"Output Options" config:"output"`
+	// 插件类型参数
+	PluginOptions `group:"Plugin Options" config:"plugins"`
+	// 指纹类型参数
+	FingerOptions `group:"Finger Options" config:"finger"`
+	// 请求类型参数
+	RequestOptions `group:"Request Options" config:"request"`
+	// 模式类型参数
+	ModeOptions `group:"Modify Options" config:"mode"`
+	// 杂项类型参数
+	MiscOptions `group:"Miscellaneous Options" config:"misc"`
 }
 
+// InputOptions
+// @Description: 定义输入类型参数
 type InputOptions struct {
-	ResumeFrom   string   `long:"resume" description:"File, resume filename" `
-	Config       string   `short:"c" long:"config" description:"File, config filename"`
-	URL          []string `short:"u" long:"url" description:"Strings, input baseurl, e.g.: http://google.com"`
-	URLFile      string   `short:"l" long:"list" description:"File, input filename"`
-	PortRange    string   `short:"p" long:"port" description:"String, input port range, e.g.: 80,8080-8090,db"`
-	CIDRs        []string `short:"i" long:"cidr" description:"String, input cidr, e.g.: 1.1.1.1/24 "`
-	RawFile      string   `long:"raw" description:"File, input raw request filename"`
+	// 指定断点文件
+	ResumeFrom string `long:"resume" description:"File, resume filename" `
+	// 指定配置文件
+	Config string `short:"c" long:"config" description:"File, config filename"`
+	// 指定URL
+	URL []string `short:"u" long:"url" description:"Strings, input baseurl, e.g.: http://google.com"`
+	// 指定URL文件
+	URLFile string `short:"l" long:"list" description:"File, input filename"`
+	// 指定端口范围
+	PortRange string `short:"p" long:"port" description:"String, input port range, e.g.: 80,8080-8090,db"`
+	// 指定CIDR
+	CIDRs []string `short:"i" long:"cidr" description:"String, input cidr, e.g.: 1.1.1.1/24 "`
+	// 指定raw类型的请求文件
+	RawFile string `long:"raw" description:"File, input raw request filename"`
+	// 自定义字典文件,可指定多个
 	Dictionaries []string `short:"d" long:"dict" description:"Files, Multi,dict files, e.g.: -d 1.txt -d 2.txt" config:"dictionaries"`
-	DefaultDict  bool     `short:"D" long:"default" description:"Bool, use default dictionary" config:"default"`
-	Word         string   `short:"w" long:"word" description:"String, word generate dsl, e.g.: -w test{?ld#4}" config:"word"`
-	Rules        []string `short:"r" long:"rules" description:"Files, rule files, e.g.: -r rule1.txt -r rule2.txt" config:"rules"`
-	AppendRule   []string `short:"R" long:"append-rule" description:"Files, when found valid path , use append rule generator new word with current path" config:"append-rules"`
-	FilterRule   string   `long:"filter-rule" description:"String, filter rule, e.g.: --rule-filter '>8 <4'" config:"filter-rule"`
-	AppendFile   []string `long:"append" description:"Files, when found valid path , use append file new word with current path" config:"append-files"`
-	Offset       int      `long:"offset" description:"Int, wordlist offset"`
-	Limit        int      `long:"limit" description:"Int, wordlist limit, start with offset. e.g.: --offset 1000 --limit 100"`
+	// 使用默认字典开关
+	DefaultDict bool `short:"D" long:"default" description:"Bool, use default dictionary" config:"default"`
+	// 以dsl方式生成字典并使用
+	Word string `short:"w" long:"word" description:"String, word generate dsl, e.g.: -w test{?ld#4}" config:"word"`
+	// 指定规则文件
+	Rules []string `short:"r" long:"rules" description:"Files, rule files, e.g.: -r rule1.txt -r rule2.txt" config:"rules"`
+	// 指定规则文件目录
+	AppendRule []string `short:"R" long:"append-rule" description:"Files, when found valid path , use append rule generator new word with current path" config:"append-rules"`
+	// 对规则进行过滤
+	FilterRule string `long:"filter-rule" description:"String, filter rule, e.g.: --rule-filter '>8 <4'" config:"filter-rule"`
+	// 追加文件字典
+	AppendFile []string `long:"append" description:"Files, when found valid path , use append file new word with current path" config:"append-files"`
+	// 设置字典偏移量
+	Offset int `long:"offset" description:"Int, wordlist offset"`
+	// 对字典进行限制
+	Limit int `long:"limit" description:"Int, wordlist limit, start with offset. e.g.: --offset 1000 --limit 100"`
 }
 
 type FunctionOptions struct {
@@ -180,23 +209,27 @@ func (opt *Option) Validate() error {
 }
 
 func (opt *Option) Prepare() error {
+	// 声明error类型变量
 	var err error
 	logs.Log.SetColor(true)
 	if err = opt.FingerOptions.Validate(); err != nil {
 		return err
 	}
 
+	// 更新指纹
 	if opt.FingerUpdate {
 		err = opt.UpdateFinger()
 		if err != nil {
 			return err
 		}
 	}
+	// 加载本地指纹配置文件
 	err = opt.LoadLocalFingerConfig()
 	if err != nil {
 		return err
 	}
 
+	// 验证指纹配置文件
 	err = opt.Validate()
 	if err != nil {
 		return err

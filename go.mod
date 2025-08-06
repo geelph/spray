@@ -1,19 +1,21 @@
 module github.com/chainreactors/spray
 
-go 1.20
+go 1.21
+
+toolchain go1.24.5
 
 require (
 	github.com/chainreactors/files v0.0.0-20240716182835-7884ee1e77f0
-	github.com/chainreactors/fingers v0.0.0-20240716172449-2fc3147b9c2a
+	github.com/chainreactors/fingers v1.0.1
 	github.com/chainreactors/logs v0.0.0-20241115105204-6132e39f5261
 	github.com/chainreactors/parsers v0.0.0-20250605044448-6bc270f12c0e
 	github.com/chainreactors/proxyclient v1.0.3-0.20250219180226-a25a0c9e6ac8
-	github.com/chainreactors/utils v0.0.0-20240805193040-ff3b97aa3c3f
-	github.com/chainreactors/words v0.0.0-20240910083848-19a289e8984b
+	github.com/chainreactors/utils v0.0.0-20241209140746-65867d2f78b2
+	github.com/chainreactors/words v0.0.0-20241002061906-25d8893158d9
 	github.com/charmbracelet/lipgloss v0.13.0
 	github.com/expr-lang/expr v1.16.9
 	github.com/gookit/config/v2 v2.2.5
-	github.com/jessevdk/go-flags v1.5.0
+	github.com/jessevdk/go-flags v1.6.1
 	github.com/panjf2000/ants/v2 v2.9.1
 	github.com/valyala/fasthttp v1.53.0
 	github.com/vbauerster/mpb/v8 v8.7.3
@@ -43,6 +45,7 @@ require (
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/mattn/go-runewidth v0.0.15 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
+	github.com/mozillazg/go-pinyin v0.20.0 // indirect
 	github.com/muesli/termenv v0.15.2 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/riobard/go-bloom v0.0.0-20200614022211-cdc8013cb5b3 // indirect

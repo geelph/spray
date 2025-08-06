@@ -62,6 +62,9 @@ func Format(opts Option) {
 	}
 }
 
+// PrintPreset
+//
+//	@Description: 打印内置配置信息
 func PrintPreset() {
 	logs.Log.Console("internal rules:\n")
 	for name, rule := range pkg.Rules {

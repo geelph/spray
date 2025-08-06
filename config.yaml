@@ -1,8 +1,8 @@
 input:
   # Files, Multi,dict files, e.g.: -d 1.txt -d 2.txt
   dictionaries: []
-  # Bool, no dictionary
-  no-dict: false
+  # Bool, use default dictionary
+  default: false
   # String, word generate dsl, e.g.: -w test{?ld#4}
   word: ""
   # Files, rule files, e.g.: -r rule1.txt -r rule2.txt
@@ -43,8 +43,6 @@ output:
   fuzzy: false
   # String, output filename
   output-file: ""
-  # String, fuzzy output filename
-  fuzzy-file: ""
   # String, dump all request, and write to filename
   dump-file: ""
   # Bool, dump all request
@@ -53,16 +51,20 @@ output:
   auto-file: false
   # String, output format, e.g.: --format 1.json
   format: ""
+  # Bool, output json
+  json: false
+  # Bool, file output format
+  file_output: json
   # String, output format
-  output_probe: ""
+  output: ""
   # Bool, Quiet
   quiet: false
   # Bool, no color
   no-color: false
   # Bool, No progress bar
   no-bar: false
-  # Bool, No stat
-  no-stat: true
+  # Bool, No stat file output
+  no-stat: false
 plugins:
   # Bool, enable all plugin
   all: false
@@ -72,20 +74,31 @@ plugins:
   extract-config: ""
   # Bool, enable recon
   recon: false
-  # Bool, enable active finger detect
-  finger: false
   # Bool, enable bak found
   bak: false
-  # Bool, enable valid result bak found, equal --append-rule rule/filebak.txt
-  file-bak: false
+  # Bool, enable fuzzuli plugin
+  fuzzuli: false
   # Bool, enable common file found
   common: false
   # Bool, enable crawl
   crawl: false
   # Int, crawl depth
   crawl-depth: 3
+  # Int, append depth
+  append-depth: 2
+finger:
+  # Bool, enable active finger detect
+  finger: false
+  # Bool, update finger database
+  update: false
+  # String, 3rd finger config path
+  finger-path: fingers
+  # String, custom finger engine, e.g. --finger-engine ehole,goby
+  finger-engine: all
 request:
-  # Strings, custom headers, e.g.: --headers 'Auth: example_auth'
+  # String, request method, e.g.: --method POST
+  method: GET
+  # Strings, custom headers, e.g.: --header 'Auth: example_auth'
   headers: []
   # String, custom user-agent, e.g.: --user-agent Custom
   useragent: ""
@@ -102,8 +115,6 @@ mode:
   rate-limit: 0
   # Bool, skip error break
   force: false
-  # Bool, check only
-  default: false
   # Bool, no scope
   no-scope: false
   # String, custom scope, e.g.: --scope *.example.com
@@ -127,14 +138,14 @@ mode:
   # Strings (comma split), custom white status
   white-status: 200
   # Strings (comma split), custom fuzzy status
-  fuzzy-status: 500,501,502,503
+  fuzzy-status: 500,501,502,503,301,302,404
   # Strings (comma split), custom unique status
   unique-status: 403,200,404
   # Bool, unique response
   unique: false
   # Int, retry count
   retry: 0
-  sim-distance: 5
+  sim-distance: 8
 misc:
   # String, path/host spray
   mod: path
@@ -153,4 +164,4 @@ misc:
   # Bool, log verbose level ,default 0, level1: -v level2 -vv 
   verbose: []
   # String, proxy address, e.g.: --proxy socks5://127.0.0.1:1080
-  proxy: ""
+  proxies: []

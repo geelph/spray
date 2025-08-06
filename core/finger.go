@@ -165,6 +165,7 @@ func (opt *FingerOptions) UpdateFinger() error {
 			}
 		}
 	}
+	// 未被修改,本地是最新的
 	if !modified {
 		logs.Log.Importantf("everything is up to date")
 	}
@@ -240,9 +241,12 @@ func (opt *FingerOptions) downloadConfig(name string) (bool, error) {
 		}
 	}
 
+	// 读文件并做Hash比较
 	if origin, err := os.ReadFile(filePath); err == nil {
+		// 与云端不同时,进行覆盖
 		if encode.Md5Hash(content) != encode.Md5Hash(origin) {
 			logs.Log.Infof("download %s config from %s save to %s", name, url, fingerFile)
+			// 覆盖本地文件
 			err = os.WriteFile(filePath, content, 0644)
 			if err != nil {
 				return false, err

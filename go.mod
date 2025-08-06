@@ -68,3 +68,4 @@ require (
 )
 
 replace github.com/chainreactors/proxyclient => github.com/chainreactors/proxyclient v1.0.3
+replace github.com/chainreactors/fingers => ../fingers
